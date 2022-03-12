@@ -66,6 +66,28 @@ class GreetingTask extends DefaultTask{
     }
 }
 
+class DownloadTextDocument extends DefaultTask{
+    @Input
+    URL url
+
+    @OutputFile
+    String file;
+
+    @TaskAction
+    void downloadDocument(){
+        try(InputStream inputStream = url.openStream()){
+            Files.copy(inputStream, Paths.get(file))
+        }catch (Exception e){
+            println e
+        }
+    }
+}
+
 tasks.register('hello', GreetingTask)
+
+tasks.register('downloadFile', DownloadTextDocument){
+    url = new URL('https://raw.githubusercontent.com/Ladeiko752/princes_and_planets/master/src/main/resources/prince.txt')
+    file = 'D:/java prod/gradle-test/app/src/main/resources/files/test.txt'
+}
 
 mainClassName = 'ru.clevertec.ShopSimulatorApplication'
