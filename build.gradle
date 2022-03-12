@@ -59,4 +59,13 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+class GreetingTask extends DefaultTask{
+    @TaskAction
+    def greet(){
+        println 'hello from greeting task!'
+    }
+}
+
+tasks.register('hello', GreetingTask)
+
 mainClassName = 'ru.clevertec.ShopSimulatorApplication'
