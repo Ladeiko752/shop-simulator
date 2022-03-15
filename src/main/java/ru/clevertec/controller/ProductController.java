@@ -28,7 +28,11 @@ public class ProductController {
         List<Product> buff = new ArrayList<>();
 
         for (Product product : allProducts){
+<<<<<<< HEAD
             if (!product.getBrand().matches("(((^[А-Я])([а-я]{2,29}$))|(^([A-Z])([a-z]{2,29}$)))")
+=======
+            if (!product.getBrand().matches("(^([A-Z]|[А-Я]))+(([a-z]|[а-я]){2,29}$)")
+>>>>>>> eee30a08375e7d6e725707b58cc4e0f0558d0eda
                     || !product.getPrice().toString().matches("^([1-9])?([0-9]\\b)\\.([0-9]{2}$)")){
                 try(FileWriter writer = new FileWriter("valid.txt", true))
                 {

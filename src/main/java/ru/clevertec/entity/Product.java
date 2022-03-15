@@ -20,7 +20,11 @@ public class Product {
     @Column(name = "category")
     private String category;
     @Column(name = "brand")
+<<<<<<< HEAD
     @CheckBrand(value = "(((^[А-Я])([а-я]{2,29}$))|(^([A-Z])([a-z]{2,29}$)))")
+=======
+    @CheckBrand(value = "(^([A-Z]|[А-Я]))+(([a-z]|[а-я]){2,29}$)")
+>>>>>>> eee30a08375e7d6e725707b58cc4e0f0558d0eda
     private String brand;
     @Column(name = "description")
     private String description;
