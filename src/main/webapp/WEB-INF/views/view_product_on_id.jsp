@@ -14,7 +14,7 @@ Category: ${prodFoundById.category}<br>
 Brand: ${prodFoundById.brand}<br>
 Description: ${prodFoundById.description}<br>
 Price: ${prodFoundById.price}<br>
-Number: <input name="number" type="number" min=1 max=10 />
+Number: <input name="number" type="number" min=1 max=20 />
     <input type="submit" value="Add to cart">
 </c:form>
 

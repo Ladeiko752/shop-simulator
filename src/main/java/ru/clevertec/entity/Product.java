@@ -1,8 +1,12 @@
 package ru.clevertec.entity;
 
+import org.intellij.lang.annotations.Pattern;
+import ru.clevertec.annotations.CheckBrand;
+import ru.clevertec.annotations.CheckPrice;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 @Entity
 @Table(name = "products")
@@ -16,16 +20,18 @@ public class Product {
     @Column(name = "category")
     private String category;
     @Column(name = "brand")
+    @CheckBrand(value = "(((^[А-Я])([а-я]{2,29}$))|(^([A-Z])([a-z]{2,29}$)))")
     private String brand;
     @Column(name = "description")
     private String description;
     @Column(name = "price")
-    private int price;
+    @CheckPrice(value = "^([1-9])?([0-9]\\b)\\.([0-9]{2}$)")
+    private Double price;
 
     public Product() {
     }
 
-    public Product(String name, String category, String brand, String description, int price) {
+    public Product(String name, String category, String brand, String description, double price) {
         this.name = name;
         this.category = category;
         this.brand = brand;
@@ -65,11 +71,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
