@@ -9,7 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CartController {
@@ -40,6 +44,27 @@ public class CartController {
     @GetMapping("/cart")
     public String myCart (Principal principal, Model model){
         CartItemsDto cartItems = cartService.getCartItems(principal.getName());
+        List<Cart> cartList = new ArrayList<>();
+        for (Cart cart : cartItems.getItems()){
+            if (!cart.getNumber().toString().matches("^([1-9]$|([1]\\d$))")){
+                try(FileWriter writer = new FileWriter("valid.txt", true))
+                {
+                    writer.write("The database contains an incorrect product value: " + cart.toString());
+                    writer.append('\n');
+                    writer.flush();
+                    cartList.add(cart);
+                }
+                catch(IOException ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+
+        for (Cart cart: cartList){
+            cartList.remove(cart);
+            cartService.deleteItemsFromCart(cart.getId());
+        }
+
         model.addAttribute("cartItems",cartItems);
         return "view_user_cart";
     }

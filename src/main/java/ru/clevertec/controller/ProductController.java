@@ -1,5 +1,6 @@
 package ru.clevertec.controller;
 
+import ru.clevertec.annotations.validation.CheckPriceValidator;
 import ru.clevertec.entity.Product;
 import ru.clevertec.service.implementation.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class ProductController {
-
     private final ProductServiceImpl productService;
 
     @Autowired
@@ -22,6 +25,29 @@ public class ProductController {
     @GetMapping("/products")
     public String getAllProducts(Model model){
         List<Product> allProducts = productService.getListOfProducts();
+        List<Product> buff = new ArrayList<>();
+
+        for (Product product : allProducts){
+            if (!product.getBrand().matches("(^([A-Z]|[А-Я]))+(([a-z]|[а-я]){2,29}$)")
+                    || !product.getPrice().toString().matches("^([1-9])?([0-9]\\b)\\.([0-9]{2}$)")){
+                try(FileWriter writer = new FileWriter("valid.txt", true))
+                {
+                    writer.write("The database contains an incorrect product value: " + product.toString());
+                    writer.append('\n');
+                    writer.flush();
+                    buff.add(product);
+                }
+                catch(IOException ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+
+        for (Product product : buff){
+            allProducts.remove(product);
+            productService.deleteProduct(product.getId());
+        }
+
         model.addAttribute("products", allProducts);
         return "view_products";
     }
