@@ -12,13 +12,13 @@ public class Cart {
     @JoinColumn(name = "product_id")
     private Product product;
     @Column(name = "price")
-    private int cartItemPrice;
+    private Double cartItemPrice;
     @Column(name = "username")
     private String username;
     @Column(name = "number")
-    private int number;
+    private Integer number;
     @Column(name = "final_price")
-    private int cartItemFinalPrice;
+    private Double cartItemFinalPrice;
 
     public int getId() { return id; }
 
@@ -34,19 +34,19 @@ public class Cart {
         this.product = product;
     }
 
-    public int getCartItemPrice() {
+    public Double getCartItemPrice() {
         return cartItemPrice;
     }
 
-    public void setCartItemPrice(int cartItemPrice) {
+    public void setCartItemPrice(Double cartItemPrice) {
         this.cartItemPrice = cartItemPrice;
     }
 
-    public int getCartItemFinalPrice() {
+    public Double getCartItemFinalPrice() {
         return cartItemFinalPrice;
     }
 
-    public void setCartItemFinalPrice(int cartItemFinalPrice) {
+    public void setCartItemFinalPrice(Double cartItemFinalPrice) {
         this.cartItemFinalPrice = cartItemFinalPrice;
     }
 
@@ -58,7 +58,7 @@ public class Cart {
         this.username = username;
     }
 
-    public int getNumber() { return number;}
+    public Integer getNumber() { return number;}
 
-    public void setNumber(int number) { this.number = number;}
+    public void setNumber(Integer number) { this.number = number;}
 }

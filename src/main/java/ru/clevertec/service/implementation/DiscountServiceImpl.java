@@ -33,8 +33,8 @@ public class DiscountServiceImpl implements DiscountService {
             List<Cart> itemsInCart = new ArrayList<>();
             for (Cart cart: allItems){
                 if (username.equals(cart.getUsername())){
-                    cart.setCartItemPrice((int) (cart.getCartItemPrice()*discountCart.getDiscount()));
-                    cart.setCartItemFinalPrice((int) (cart.getCartItemFinalPrice()*discountCart.getDiscount()));
+                    cart.setCartItemPrice((cart.getCartItemPrice()*discountCart.getDiscount()));
+                    cart.setCartItemFinalPrice((cart.getCartItemFinalPrice()*discountCart.getDiscount()));
                     cartRepository.save(cart);
                 }
             }
