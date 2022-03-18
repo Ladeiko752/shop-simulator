@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "description")
     private String description;
     @Column(name = "price")
-    @CheckPrice(value = "^([1-9])?([0-9]\\b)\\.([0-9]{2}$)")
+    @CheckPrice(value = "^(([1-9]\\b)|([1-9][0-9]\\b))\\.([0-9]{1,2}$)")
     private Double price;
 
     public Product() {

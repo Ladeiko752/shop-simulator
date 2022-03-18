@@ -29,7 +29,7 @@ public class ProductController {
 
         for (Product product : allProducts){
             if (!product.getBrand().matches("(((^[А-Я])([а-я]{2,29}$))|(^([A-Z])([a-z]{2,29}$)))")
-                    || !product.getPrice().toString().matches("^([1-9])?([0-9]\\b)\\.([0-9]{2}$)")){
+                    || !product.getPrice().toString().matches("^(([1-9]\\b)|([1-9][0-9]\\b))\\.([0-9]{1,2}$)")){
                 try(FileWriter writer = new FileWriter("valid.txt", true))
                 {
                     writer.write("The database contains an incorrect product value: " + product.toString());
